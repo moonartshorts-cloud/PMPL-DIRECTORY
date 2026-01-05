@@ -1,0 +1,136 @@
+* {box-sizing:border-box}
+body {
+    margin:0; font-family:Inter,Segoe UI,Arial; background:#f4f7fb; color:#1f2937;
+    height: 100vh; /* Force full viewport height */
+    overflow: hidden; /* Lock the main browser scrollbar */
+    display: flex; flex-direction: column;
+}
+
+/* --- LOGIN PAGE (Remains Standard) --- */
+.login-page {
+ min-height:100vh; display:flex; align-items:center; justify-content:center;
+ background:linear-gradient(135deg,#2563eb,#60a5fa);
+ position: relative; overflow: auto; /* Login page can scroll if needed */
+}
+.login-card {
+ background:#fff; padding:32px; border-radius:16px; width:100%; max-width:360px;
+ box-shadow:0 20px 50px rgba(0,0,0,.25); text-align:center;
+}
+.login-card input, .login-card button {
+ width:100%; padding:12px; margin:8px 0; border-radius:10px; border:1px solid #ddd;
+}
+
+/* --- MAIN LAYOUT STRUCTURE --- */
+.header {
+ height:56px; background:#2563eb; color:#fff; display:flex;
+ align-items:center; justify-content:space-between; padding:0 20px;
+ flex-shrink: 0; /* Never shrink the header */
+ z-index: 100;
+}
+.user { display: flex; align-items: center; gap: 10px; }
+
+.app {
+ display:grid;
+ grid-template-columns: 220px 1fr;
+ height: calc(100vh - 56px); /* Fill remaining height exactly */
+ overflow: hidden; /* Prevent grid overflow */
+}
+
+/* --- LOCKED LEFT PANEL --- */
+.sidebar {
+ background:#fff; padding:16px; box-shadow:2px 0 10px rgba(0,0,0,.08);
+ height: 100%; /* Fill the grid column */
+ overflow-y: auto; /* Scroll ONLY the sidebar if buttons overflow */
+}
+.sidebar button {
+ width:100%; padding:12px; margin-bottom:12px; border:none; border-radius:12px;
+ background:#2563eb; color:#fff; font-size:14px; font-weight:500;
+ box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2); transition: all 0.2s;
+}
+.sidebar button:hover {
+ background:#1d4ed8; transform: translateY(-2px);
+ box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- RIGHT PANEL (Main Content) --- */
+.main {
+ padding: 20px;
+ height: 100%;
+ display: flex;
+ flex-direction: column; /* Stack Search, Table, Footer */
+ overflow: hidden; /* Don't scroll the container, scroll the table-wrap */
+}
+
+.main input {
+ width:100%; padding:12px; border-radius:12px; border:1px solid #ccc; margin-bottom:12px;
+ flex-shrink: 0; /* Don't shrink search bar */
+}
+
+/* --- THE SCROLLING DATA BOX --- */
+.table-wrap {
+ flex-grow: 1; /* Take up all available space */
+ overflow-y: auto; /* SCROLL HERE */
+ overflow-x: auto;
+ background: #fff;
+ border-radius: 14px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+ border: 1px solid #e5e7eb;
+ position: relative;
+}
+
+table {
+ width:100%; border-collapse:collapse;
+}
+th, td { padding:14px; border-bottom:1px solid #f3f4f6; text-align:left; vertical-align: middle; }
+
+/* FIXED COLUMNS */
+th {
+ background:#f8fafc; color: #4b5563; font-weight:600; text-transform: uppercase; font-size: 12px;
+ position: sticky;
+ top: 0; /* Sticks to top of .table-wrap */
+ z-index: 10;
+ box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* --- FOOTER --- */
+.footer {
+ text-align: center; padding: 15px; color: #9ca3af; font-size: 12px;
+ flex-shrink: 0; /* Lock at bottom */
+ border-top: 1px solid #e5e7eb; margin-top: 10px;
+}
+.login-footer { position: absolute; bottom: 10px; color: rgba(255,255,255,0.7); border: none; }
+
+/* --- BUTTONS & MODALS --- */
+button { cursor: pointer; font-family: inherit; }
+.logout-btn { 
+ background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.4); 
+ color: white; padding: 6px 16px; border-radius: 6px; font-size: 13px; 
+}
+.logout-btn:hover { background: rgba(255,255,255,0.25); }
+
+.btn-action { 
+ padding: 6px 12px; margin-right: 4px; border-radius: 6px; 
+ color: white; border: none; font-size: 12px; font-weight: 600;
+}
+.btn-edit { background: #f59e0b; }
+.btn-del { background: #ef4444; }
+.col-action { width: 140px; text-align: center; }
+
+.modal {
+ display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+ background:rgba(0,0,0,.5);align-items:center;justify-content:center; z-index: 2000;
+ backdrop-filter: blur(2px);
+}
+.modal-box {
+ background:#fff;padding:32px;border-radius:20px;width:380px;
+ box-shadow:0 25px 50px rgba(0,0,0,.25);
+}
+.modal-box input, select, .modal-box button {
+ width:100%; margin:8px 0; padding:12px; border-radius:10px; border:1px solid #e5e7eb;
+}
+.modal-box button { background:#2563eb; color:#fff; border:none; font-weight:600; }
+
+@media(max-width:900px){
+ .app {grid-template-columns:1fr}
+ .sidebar {display:none}
+}
